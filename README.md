@@ -25,12 +25,12 @@ Web url: `http://localhost:3000`
 
 `GET /users`  --> get all users
 
-`GET /users/{username}`  --> get detail
+`GET /users/{id}`  --> get detail
 
 `POST /users`  --> create user, params: `username`, `name`, `email`, `group_id`
 
-`PUT /users` --> update user, params: `username`, `name`, `email`, `group_id`
+`PUT /users` --> update user, params: `id`, `name`, `email`, `group_id`
 
-`DELETE /users/{username}` --> remove user
+`DELETE /users/{id}` --> remove user
 
 `GET /groups` --> get all groups
