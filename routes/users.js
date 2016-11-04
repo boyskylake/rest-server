@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var PouchDB = require('pouchdb');
+let express = require('express');
+let router = express.Router();
+let PouchDB = require('pouchdb');
 
-var db = new PouchDB('users');
+let db = new PouchDB('users');
+let moment = require('moment');
 
 router.get('/', (req, res, next) => {
 
@@ -33,10 +34,11 @@ router.post('/', (req, res, next) => {
   let name = req.body.name;
   let email = req.body.email;
   let group_id = +req.body.group_id;
+  let id = moment().format('x');
 
   if (username && name && email && group_id) {
     var doc = {
-      "_id": username,
+      "_id": id,
       "username": username,
       "name": name,
       "email": email,
@@ -55,9 +57,9 @@ router.post('/', (req, res, next) => {
 
 });
 
-router.get('/:username', (req, res, next) => {
-  let username = req.params.username;
-  db.get(username)
+router.get('/:id', (req, res, next) => {
+  let id = req.params.id;
+  db.get(id)
     .then(doc => {
       let obj = {
         id: doc._id,
@@ -72,10 +74,9 @@ router.get('/:username', (req, res, next) => {
     .catch(err => res.send({ ok: false, err: err }));
 });
 
-router.delete('/:username', (req, res, next) => {
-  let username = req.params.username;
-  console.log(username)
-  db.get(username)
+router.delete('/:id', (req, res, next) => {
+  let id = req.params.id;
+  db.get(id)
     .then(doc => {
       console.log(doc)
       return db.remove(doc);
@@ -85,16 +86,16 @@ router.delete('/:username', (req, res, next) => {
 });
 
 router.put('/', (req, res, next) => {
-  let username = req.body.username;
+  let id = req.body.id;
   let name = req.body.name;
   let email = req.body.email;
   let group_id = req.body.group_id;
 
-  if (username && name && email && group_id) {
-    db.get(username)
+  if (id && name && email && group_id) {
+    db.get(id)
       .then(doc => {
         var _doc = {
-          "_id": username,
+          "_id": id,
           "_rev": doc._rev,
           "name": name,
           "email": email,
