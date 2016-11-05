@@ -97,6 +97,7 @@ router.put('/', (req, res, next) => {
         var _doc = {
           "_id": id,
           "_rev": doc._rev,
+          "username": doc.username,
           "name": name,
           "email": email,
           "group_id": group_id
