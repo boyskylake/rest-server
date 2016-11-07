@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var groups = require('../models/groups');
 
 router.get('/', function(req, res, next) {
-  let groups = [
-    {id: 1, name: 'Admin'},
-    {id: 2, name: 'Staff'},
-    {id: 3, name: 'Guest'},
-  ];
+  let _groups = groups.getGroups();
 
-  res.send({ ok: true, rows: groups });
+  res.send({ ok: true, groups: _groups });
 });
 
 module.exports = router;

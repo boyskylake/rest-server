@@ -4,8 +4,11 @@ let PouchDB = require('pouchdb');
 
 let db = new PouchDB('users');
 let moment = require('moment');
+let groups = require('../models/groups');
+let _ = require('lodash');
 
 router.get('/', (req, res, next) => {
+  let _groups = groups.getGroups();
 
   db.allDocs({
     include_docs: true
@@ -20,6 +23,12 @@ router.get('/', (req, res, next) => {
         obj.name = v.doc.name;
         obj.email = v.doc.email;
         obj.group_id = v.doc.group_id;
+        let idx = _.findIndex(_groups, { id: parseInt(v.doc.group_id) });
+        if (idx >= 0) {
+          obj.group_name = _groups[idx].name;
+        } else {
+          obj.group_name = null;
+        }
         users.push(obj)
       });
       res.send({ ok: true, rows: users })
