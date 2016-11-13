@@ -34,3 +34,9 @@ Web url: `http://localhost:3000`
 `DELETE /users/{id}` --> remove user
 
 `GET /groups` --> get all groups
+
+### Login/Logout
+
+`POST /login` --> login, params: username: admin, password: admin (return {ok: true, fullname: John Doe})
+
+`GET /logout` --> logut
