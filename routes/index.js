@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+router.post('/register', function(req, res, next) {
+  let token = req.body.token;
+  console.log(token);
+  res.send({ ok: true });
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
